@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"time"
 
 	"github.com/julienschmidt/httprouter"
 )
@@ -20,6 +21,7 @@ var (
 	//cache will hold city and weather info for 5 min (assumes weather does not change much in that time)
 	//used to prevent unnecessary repeat/duplicate calls to api
 	miniWeatherCache = make(map[string][]byte)
+	cacheTTL = 5 * time.Minute
 )
 
 func main() {
@@ -27,6 +29,9 @@ func main() {
 	// todo build FE page
 	// router.Handle("GET", "/", getWeatherByCity)
 	router.GET("/getweather", getWeatherByCity)
+
+	// setup cacheTTL 
+	go clearCache()
 	log.Fatal(http.ListenAndServe(":8082", &server{router}))
 }
 
@@ -41,12 +46,12 @@ func getWeatherByCity(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 		return
 	}
 	city := keys[0]
-	log.Printf("city: %s", city)
 	if val, ok := miniWeatherCache[city]; ok {
 		log.Printf("INFO: getWeatherByCity(): city %s previously fetched, returning last given info", city)
 		w.Write(val)
 	} else {
 		url := fmt.Sprintf("https://%s/data/2.5/weather?q=%s&appid=%s", openWeatherMapDomain, city, openWeatherAPIKEY)
+		log.Printf("INFO: getWeatherByCity(): fetching info from api %s", url)
 		resp, err := http.Get(url)
 		if err != nil {
 			log.Printf("ERROR: getWeatherByCity() error fetching weather for url %s : %v", url, err)
@@ -64,7 +69,14 @@ func getWeatherByCity(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	}
 }
 
-
+func clearCache(){
+	for {
+		// assign cache to new map 
+		miniWeatherCache = make(map[string][]byte)
+		log.Printf("cache cleared and reset")
+		time.Sleep(cacheTTL)
+	}
+}
 
 func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
