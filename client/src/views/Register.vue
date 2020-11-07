@@ -1,18 +1,40 @@
 <template>
-  <div class="sign-up">
-    <p>Let's create a new account !</p>
-    <input type="text" v-model="email" placeholder="Email" /><br />
-    <input type="password" v-model="password" placeholder="Password" /><br />
-    <button @click="signUp">Sign Up</button>
-    <span>or go back to <router-link to="/login">login</router-link>.</span>
-  </div>
+  <v-container class="sign-up">
+    <Heading />
+    <v-row>
+      <v-col col="4">
+        <v-text-field
+          solo
+          type="text"
+          v-model="email"
+          placeholder="Enter Email"
+        ></v-text-field>
+        <v-text-field
+          solo
+          type="password"
+          v-model="password"
+          placeholder="Enter Password"
+        ></v-text-field>
+        <v-btn large @click="signUp">Create an account</v-btn>
+      </v-col>
+    </v-row>
+     <v-row>
+        <v-col>
+          <router-link to="/login">Go back to login</router-link>
+        </v-col>
+      </v-row>
+  </v-container>
 </template>
 
 <script>
 import firebase from "firebase";
+import Heading from "../components/Heading.vue";
 
 export default {
   name: "signUp",
+  components: {
+    Heading,
+  },
   data() {
     return {
       email: "",
@@ -20,17 +42,16 @@ export default {
     };
   },
   methods: {
-    signUp: function() {
+    signUp() {
       firebase
         .auth()
         .createUserWithEmailAndPassword(this.email, this.password)
         .then(
-          (user) => {
-            console.log("reg", user);
+          () => {
             this.$router.replace("home");
           },
           (err) => {
-            alert("Oops. " + err.message);
+            alert("Oops! " + err.message);
           }
         );
     },
@@ -38,23 +59,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.sign-up {
-  margin-top: 40px;
-}
-input {
-  margin: 10px 0;
-  width: 20%;
-  padding: 15px;
-}
-button {
-  margin-top: 10px;
-  width: 10%;
-  cursor: pointer;
-}
-span {
-  display: block;
-  margin-top: 20px;
-  font-size: 11px;
-}
-</style>
+<style scoped></style>

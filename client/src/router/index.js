@@ -18,6 +18,11 @@ const routes = [
     }
   },
   {
+    path: '*',
+    name: 'Home',
+    component: Home
+  },
+  {
     path: '/login',
     name: 'Login',
     component: Login
@@ -39,9 +44,13 @@ router.beforeEach((to, from, next) => {
   if (requiresAuth) {
     const currentUser = firebase.auth().currentUser;
     if (!currentUser){
+      console.log('not loggedin')
       next('login')
+    } else {
+      next()
     }
   } else {
+    console.log('home')
     next()
   }
 });

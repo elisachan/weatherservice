@@ -1,6 +1,10 @@
 <template>
-  <v-container>
-    <h1>what the weather</h1>
+  <div>
+    <v-row justify="center">
+      <v-col>
+        <h1>what the weather</h1>
+      </v-col>
+    </v-row>
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
@@ -10,20 +14,12 @@
           height="200"
         />
       </v-col>
-
-      <v-col class="mb-4">
-     
-      </v-col>
-
-
-
-
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
-  export default {
-    name: 'WeatherSearch'
-  }
+export default {};
 </script>
+
+<style lang="scss" scoped></style>
