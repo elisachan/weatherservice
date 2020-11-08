@@ -18,7 +18,6 @@ Saturday Nov 7, 2020
 https://whattheweather.herokuapp.com/ (it is a free dyno so may take some time to load) 
 ### Time spent 
 ~5 
-How much time did you spend on the assignment? Normally, this is expressed in hours. 
  
 ### Assumptions made 
 Use this section to tell us about any assumptions that you made when creating your solution. 
