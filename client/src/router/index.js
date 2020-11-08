@@ -1,58 +1,56 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import firebase from 'firebase';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import firebase from "firebase";
 
-import Home from '@/views/Home';
-import Login from '@/views/Login';
-import Register from '@/views/Register';
+import Home from "@/views/Home";
+import Login from "@/views/Login";
+import Register from "@/views/Register";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
+    path: "/",
+    name: "Home",
     component: Home,
     meta: {
-      requiresAuth: true
-    }
+      requiresAuth: true,
+    },
   },
   {
-    path: '*',
-    name: 'Home',
-    component: Home
+    path: "*",
+    name: "Home",
+    component: Home,
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login
+    path: "/login",
+    name: "Login",
+    component: Login,
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  }
-]
+    path: "/register",
+    name: "Register",
+    component: Register,
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  routes,
+});
 
-// base router logic to go to login page if not logged 
+// base router logic to go to login page if not logged
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (requiresAuth) {
     const currentUser = firebase.auth().currentUser;
-    if (!currentUser){
-      console.log('not loggedin')
-      next('login')
+    if (!currentUser) {
+      next("login");
     } else {
-      next()
+      next();
     }
   } else {
-    console.log('home')
-    next()
+    next();
   }
 });
 
-export default router
+export default router;

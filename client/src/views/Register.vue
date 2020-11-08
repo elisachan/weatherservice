@@ -1,5 +1,5 @@
 <template>
-  <v-container class="sign-up">
+  <v-container>
     <Heading />
     <v-row>
       <v-col col="4">
@@ -31,7 +31,7 @@ import firebase from "firebase";
 import Heading from "../components/Heading.vue";
 
 export default {
-  name: "signUp",
+  name: "Register",
   components: {
     Heading,
   },

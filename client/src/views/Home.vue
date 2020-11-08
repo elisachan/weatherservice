@@ -11,8 +11,8 @@
     </v-row>
     <v-row v-if="weatherInfo">
       <v-col>
-        <v-row> What's it like?   {{ weatherInfo.weather[0].main }}  </v-row>
-        <v-row> What's the temp?  {{ weatherInfo.main.temp }}</v-row>
+        <v-row> What's it like? {{ weatherInfo.weather[0].main }} </v-row>
+        <v-row> What's the temp? {{ weatherInfo.main.temp }}</v-row>
         <v-row> Full Data: {{ weatherInfo }} </v-row>
       </v-col>
     </v-row>

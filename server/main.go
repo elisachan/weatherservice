@@ -27,7 +27,6 @@ var (
 
 func main() {
 	router := httprouter.New()
-	// todo build FE page
 	router.GET("/api/getweather", getWeatherByCity)
 
 	// serve FE files
@@ -77,6 +76,7 @@ func getWeatherByCity(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	}
 }
 
+// set to clear cache based on cachettl set
 func clearCache(){
 	for {
 		// assign cache to new map 
