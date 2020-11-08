@@ -22,6 +22,7 @@ var (
 	//used to prevent unnecessary repeat/duplicate calls to api
 	miniWeatherCache = make(map[string][]byte)
 	cacheTTL = 5 * time.Minute
+	port = os.Getenv("PORT") 
 )
 
 func main() {
@@ -33,10 +34,13 @@ func main() {
 	mux := http.NewServeMux()
 	mux.Handle("/", http.FileServer(http.Dir("dist")))
 	mux.Handle("/api/", router)
-
+	// quick handle for heroku port binding
+	if port == "" {
+		port = ":8080"
+	}
 	// setup cacheTTL 
 	go clearCache()
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(port, mux))
 }
 
 
