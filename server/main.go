@@ -36,11 +36,11 @@ func main() {
 	mux.Handle("/api/", router)
 	// quick handle for heroku port binding
 	if port == "" {
-		port = ":8080"
+		port = "8080"
 	}
 	// setup cacheTTL 
 	go clearCache()
-	log.Fatal(http.ListenAndServe(port, mux))
+	log.Fatal(http.ListenAndServe(":" + port, mux))
 }
 
 
