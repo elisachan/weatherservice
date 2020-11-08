@@ -27,12 +27,16 @@ var (
 func main() {
 	router := httprouter.New()
 	// todo build FE page
-	// router.Handle("GET", "/", getWeatherByCity)
-	router.GET("/getweather", getWeatherByCity)
+	router.GET("/api/getweather", getWeatherByCity)
+
+	// serve FE files
+	mux := http.NewServeMux()
+	mux.Handle("/", http.FileServer(http.Dir("dist")))
+	mux.Handle("/api/", router)
 
 	// setup cacheTTL 
 	go clearCache()
-	log.Fatal(http.ListenAndServe(":8082", &server{router}))
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 
 

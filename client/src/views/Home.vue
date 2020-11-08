@@ -39,12 +39,11 @@ export default {
       city: "",
       weatherInfo: "",
       weatherHeading: "everything",
-      baseURL: "http://localhost:8082", // used for dev
     };
   },
   methods: {
     submitCity() {
-      fetch(`${this.baseURL}/getweather?city=${this.city}`)
+      fetch(`/api/getweather?city=${this.city}`)
         .then((response) => response.json())
         .then((data) => {
           this.weatherInfo = data;
