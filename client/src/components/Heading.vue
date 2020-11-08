@@ -8,7 +8,15 @@
     <v-row class="text-center">
       <v-col cols="12">
         <v-img
+           v-show="weather=='everything'"
           :src="require('../assets/weather.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
+        <v-img
+           v-show="weather=='Clouds'"
+          :src="require('../assets/cloudy.svg')"
           class="my-3"
           contain
           height="200"
@@ -19,7 +27,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+    props: {
+        weather: {
+            type: String,
+            default: "everything"
+        },
+    },
+};
 </script>
 
 <style lang="scss" scoped></style>
