@@ -21,6 +21,20 @@
           contain
           height="200"
         />
+         <v-img
+           v-show="weather=='Rain'"
+          :src="require('../assets/rainy-7.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
+          <v-img
+           v-show="weather=='Clear'"
+          :src="require('../assets/day.svg')"
+          class="my-3"
+          contain
+          height="200"
+        />
       </v-col>
     </v-row>
   </div>

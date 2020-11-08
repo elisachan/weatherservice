@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <Heading :weather="weatherHeading"/>
+    <Heading :weather="weatherHeading" />
     <v-row>
       <v-text-field
         solo
@@ -9,8 +9,12 @@
         placeholder="Enter your City"
       ></v-text-field>
     </v-row>
-    <v-row>
-      <h5>{{weatherInfo}}</h5>
+    <v-row v-if="weatherInfo">
+      <v-col>
+        <v-row> What's it like?   {{ weatherInfo.weather[0].main }}  </v-row>
+        <v-row> What's the temp?  {{ weatherInfo.main.temp }}</v-row>
+        <v-row> Full Data: {{ weatherInfo }} </v-row>
+      </v-col>
     </v-row>
     <v-btn large @click="submitCity">Submit for weather data</v-btn>
     <v-row class="text-center">
@@ -34,18 +38,18 @@ export default {
     return {
       city: "",
       weatherInfo: "",
-      weatherHeading:"everything",
-      baseURL: "http://localhost:8082" // used for dev 
+      weatherHeading: "everything",
+      baseURL: "http://localhost:8082", // used for dev
     };
   },
   methods: {
     submitCity() {
       fetch(`${this.baseURL}/getweather?city=${this.city}`)
-      .then(response => response.json())
-      .then(data =>{
-        this.weatherInfo = data
-        this.weatherHeading = data.weather[0].main
-      })
+        .then((response) => response.json())
+        .then((data) => {
+          this.weatherInfo = data;
+          this.weatherHeading = data.weather[0].main;
+        });
     },
 
     logout() {
