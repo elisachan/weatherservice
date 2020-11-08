@@ -31,6 +31,7 @@ If applicable. Did you do something that you feel could have been done better in
 let us know. 
  
 - fixing my docker build file to build the FE section and place it into the new container (for some reason it kept running out of memory so I ended up just building locally and then placing the built files into the container
+- did not test for errors/made assumptions on what should happen but haven't gone through scenarios
 
 
 ### Stretch goals attempted 
@@ -53,7 +54,7 @@ go build
 cd ../client
 npm run serve
  
-I believe it will run at 8080 for the server and npm on whichever next port is avail. the client shoudl be proxied to call server at 8080
+it will run at 8080 for the server and the client on whichever next port is avail. the client shoudl be proxied to call server at 8080
 
 
 ### What did you not include in your solution that you want us to know about? 
