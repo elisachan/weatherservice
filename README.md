@@ -7,6 +7,7 @@
 )
 - chose to use vue because vue-cli sets me up quickly for the few options of login/registration and home page; not many reuseable components with data passing shown but I tried at least passing some props into the header image for the asset image. also using a FE component framework allows for the project to grow easier if/when there are more things into play 
  - chose to deploy as a container because those are nice for various reasons, but also I had trouble running the go application on heroku (classic works well locally but some random issues outside of that)
+ - spent a few minutes this morning trying to redeploy with some error messages/handling but ran into some issues with heroku so rolled back to previous vs although the code is still in master
  
 
 ### Date 
