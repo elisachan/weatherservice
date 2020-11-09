@@ -50,7 +50,7 @@ func getWeatherByCity(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 	keys, ok := r.URL.Query()["city"]
 	if !ok || len(keys[0]) < 1 {
 		log.Printf("ERROR: getWeatherByCity(): param city not provided")
-		return
+		w.Write([]byte("sorry you'll need to enter in a city"))
 	}
 	city := keys[0]
 	if val, ok := miniWeatherCache[city]; ok {
@@ -62,13 +62,13 @@ func getWeatherByCity(w http.ResponseWriter, r *http.Request, ps httprouter.Para
 		resp, err := http.Get(url)
 		if err != nil {
 			log.Printf("ERROR: getWeatherByCity() error fetching weather for url %s : %v", url, err)
-			return
+			w.Write([]byte("sorry, there was a problem fetching the weather info. Please try again"))
 		}
 		defer resp.Body.Close()
 		weather, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
 			log.Printf("ERROR: getWeatherByCity() error reading from for url %s", url)
-			return
+			w.Write([]byte("sorry, there was a problem fetching the weather info. Please try again"))
 		}
 		// add to cache
 		miniWeatherCache[city] = weather
