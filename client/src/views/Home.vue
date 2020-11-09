@@ -48,7 +48,10 @@ export default {
         .then((data) => {
           this.weatherInfo = data;
           this.weatherHeading = data.weather[0].main;
-        });
+        })
+        .catch(() =>{
+            this.weatherInfo = "Sorry there was an error with your request. Please try again."
+        })
     },
 
     logout() {
